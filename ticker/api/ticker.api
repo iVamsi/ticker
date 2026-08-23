@@ -1,0 +1,14 @@
+public final class com/vamsi/ticker/FixedClock : kotlin/time/Clock {
+	public fun <init> (Lkotlin/time/Instant;)V
+	public fun now ()Lkotlin/time/Instant;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/vamsi/ticker/MutableClock : kotlin/time/Clock {
+	public fun <init> (Lkotlin/time/Instant;)V
+	public final fun advanceBy-LRDsOJo (J)V
+	public fun now ()Lkotlin/time/Instant;
+	public final fun setTo (Lkotlin/time/Instant;)V
+	public fun toString ()Ljava/lang/String;
+}
+

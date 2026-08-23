@@ -1,0 +1,9 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.ivamsi:ticker-coroutines>
+final fun (kotlinx.coroutines.test/TestCoroutineScheduler).com.vamsi.ticker.coroutines/asClock(kotlin.time/Instant): kotlin.time/Clock // com.vamsi.ticker.coroutines/asClock|asClock@kotlinx.coroutines.test.TestCoroutineScheduler(kotlin.time.Instant){}[0]

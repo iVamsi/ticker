@@ -1,0 +1,23 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxX64, macosArm64, mingwX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.ivamsi:ticker>
+final class com.vamsi.ticker/FixedClock : kotlin.time/Clock { // com.vamsi.ticker/FixedClock|null[0]
+    constructor <init>(kotlin.time/Instant) // com.vamsi.ticker/FixedClock.<init>|<init>(kotlin.time.Instant){}[0]
+
+    final fun now(): kotlin.time/Instant // com.vamsi.ticker/FixedClock.now|now(){}[0]
+    final fun toString(): kotlin/String // com.vamsi.ticker/FixedClock.toString|toString(){}[0]
+}
+
+final class com.vamsi.ticker/MutableClock : kotlin.time/Clock { // com.vamsi.ticker/MutableClock|null[0]
+    constructor <init>(kotlin.time/Instant) // com.vamsi.ticker/MutableClock.<init>|<init>(kotlin.time.Instant){}[0]
+
+    final fun advanceBy(kotlin.time/Duration) // com.vamsi.ticker/MutableClock.advanceBy|advanceBy(kotlin.time.Duration){}[0]
+    final fun now(): kotlin.time/Instant // com.vamsi.ticker/MutableClock.now|now(){}[0]
+    final fun setTo(kotlin.time/Instant) // com.vamsi.ticker/MutableClock.setTo|setTo(kotlin.time.Instant){}[0]
+    final fun toString(): kotlin/String // com.vamsi.ticker/MutableClock.toString|toString(){}[0]
+}

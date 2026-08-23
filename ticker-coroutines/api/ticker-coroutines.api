@@ -1,0 +1,4 @@
+public final class com/vamsi/ticker/coroutines/SchedulerClockKt {
+	public static final fun asClock (Lkotlinx/coroutines/test/TestCoroutineScheduler;Lkotlin/time/Instant;)Lkotlin/time/Clock;
+}
+
