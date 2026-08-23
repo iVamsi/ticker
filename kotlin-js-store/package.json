@@ -1,0 +1,5 @@
+{
+  "name": "kotlin-js-store",
+  "private": true,
+  "description": "Lockfile store for the Kotlin/JS Gradle plugin. Do not yarn-install from this directory."
+}
