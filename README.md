@@ -29,8 +29,8 @@ Add the dependencies to your test source set:
 kotlin {
     sourceSets {
         commonTest.dependencies {
-            implementation("io.github.ivamsi:ticker:<version>")
-            implementation("io.github.ivamsi:ticker-coroutines:<version>") // optional
+            implementation("io.github.ivamsi:ticker:0.1.0")
+            implementation("io.github.ivamsi:ticker-coroutines:0.1.0") // optional
         }
     }
 }
