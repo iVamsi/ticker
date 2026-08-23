@@ -18,7 +18,7 @@ assertNull(cache.get("key"))
 
 Writing a quick fake clock in a couple lines usually introduces subtle bugs:
 
-1. **Lost updates under concurrency:** A naive `instant += duration` implementation relies on a non-atomic read-modify-write. When multiple threads or concurrent test workers advance time simultaneously, updates get silently lost. `MutableClock` uses atomic compare-and-set loops under the hood, making concurrent calls to `advanceBy`, `setTo`, and `now` completely thread-safe across all platforms.
+1. **Lost updates under concurrency:** A naive `instant += duration` implementation relies on a non-atomic read-modify-write. When multiple threads or concurrent test workers advance time simultaneously, updates get silently lost. `MutableClock` uses an `AtomicReference` compare-and-set loop, so concurrent `advanceBy`, `setTo`, and `now` calls do not drop updates. Lost-update tests run on the JVM.
 2. **Desynchronization in coroutine tests:** When using `runTest`, calling `advanceTimeBy(1.hours)` advances virtual time on the test dispatcher, but leaves independent clock objects behind. This causes code checking `clock.now()` to see time standing still while delayed coroutines resume. The `ticker-coroutines` module seamlessly bridges `TestCoroutineScheduler` virtual time to `kotlin.time.Clock`.
 
 ## Installation
@@ -42,13 +42,13 @@ kotlin {
 | :--- | :--- |
 | `MutableClock(instant)` | Controllable clock supporting `advanceBy(duration)` and `setTo(instant)`. |
 | `FixedClock(instant)` | Immutable clock that always returns a constant instant. |
-| `TestCoroutineScheduler.asClock(start)` | Clock dynamically derived from coroutine virtual time (`ticker-coroutines`). |
+| `TestCoroutineScheduler.asClock(start)` | Clock derived from coroutine virtual time, in whole milliseconds (`ticker-coroutines`). |
 
 > **Tip:** `advanceBy` only accepts non-negative durations because stepping backward during an "advance" is almost always a test logic error. To jump backward or simulate time synchronization, use `setTo(instant)`.
 
 ### Using with `runTest`
 
-`asClock` dynamically derives its current time from the `TestCoroutineScheduler`. As you advance virtual time or run delayed coroutines, the clock moves automatically:
+`asClock` reads `TestCoroutineScheduler.currentTime` on every `now()`. Virtual time is whole milliseconds, so a sub-millisecond delay does not move the clock until a full millisecond elapses. `advanceTimeBy` and `delay` still keep clock time and virtual time in step:
 
 ```kotlin
 @Test
@@ -97,7 +97,7 @@ xcrun simctl create "iPhone 16" \
 
 - **Zero extra dependencies:** `:ticker` depends solely on the Kotlin standard library. `:ticker-coroutines` adds only `kotlinx-coroutines-test`.
 - **Internal Atomics:** `MutableClock` uses Kotlin's `kotlin.concurrent.atomics` internally without leaking experimental opt-ins into your consumer code.
-- **Strict ABI Validation:** Both artifacts enforce Kotlin Explicit API mode and ABI dumps (`checkKotlinAbi`) to guarantee binary compatibility across releases.
+- **Strict ABI Validation:** Both artifacts enforce Kotlin Explicit API mode and ABI dumps. CI runs `./gradlew checkLegacyAbi` so a public-API change has to update the dump files.
 
 ## License
 

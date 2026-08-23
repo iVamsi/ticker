@@ -7,6 +7,7 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Instant
 
@@ -66,11 +67,22 @@ class SchedulerClockTest {
     }
 
     @Test
+    fun `now is start plus scheduler currentTime in whole milliseconds`() = runTest {
+        val clock = testScheduler.asClock(start)
+
+        assertEquals(start + testScheduler.currentTime.milliseconds, clock.now())
+
+        advanceTimeBy(1.milliseconds)
+        assertEquals(start + 1.milliseconds, clock.now())
+        assertEquals(start + testScheduler.currentTime.milliseconds, clock.now())
+    }
+
+    @Test
     fun `toString includes start and current instant`() = runTest {
         val clock = testScheduler.asClock(start)
-        assertEquals("SchedulerClock(start=2026-01-01T00:00:00Z, current=2026-01-01T00:00:00Z)", clock.toString())
+        assertEquals("asClock(start=2026-01-01T00:00:00Z, current=2026-01-01T00:00:00Z)", clock.toString())
 
         advanceTimeBy(10.minutes)
-        assertEquals("SchedulerClock(start=2026-01-01T00:00:00Z, current=2026-01-01T00:10:00Z)", clock.toString())
+        assertEquals("asClock(start=2026-01-01T00:00:00Z, current=2026-01-01T00:10:00Z)", clock.toString())
     }
 }

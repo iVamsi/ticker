@@ -9,8 +9,9 @@ import kotlin.time.Instant
 /**
  * Creates a [Clock] backed by this [TestCoroutineScheduler]'s virtual time.
  *
- * Each call to [Clock.now] dynamically computes the current instant by adding the scheduler's
- * elapsed virtual time to [start].
+ * Each call to [Clock.now] computes the current instant as [start] plus the scheduler's
+ * elapsed virtual time. Virtual time is exposed in whole milliseconds, so sub-millisecond
+ * delays do not move this clock until a full millisecond has elapsed.
  *
  * @param start the baseline instant corresponding to virtual time 0.
  */
@@ -20,6 +21,6 @@ public fun TestCoroutineScheduler.asClock(start: Instant): Clock {
     return object : Clock {
         override fun now(): Instant = start + scheduler.currentTime.milliseconds
 
-        override fun toString(): String = "SchedulerClock(start=$start, current=${now()})"
+        override fun toString(): String = "asClock(start=$start, current=${now()})"
     }
 }
