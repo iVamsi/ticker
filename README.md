@@ -1,5 +1,10 @@
 # Ticker
 
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3+-purple.svg)](https://kotlinlang.org)
+[![Platform](https://img.shields.io/badge/Platform-Multiplatform-blue.svg)](https://kotlinlang.org/docs/multiplatform.html)
+[![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.1.0-red.svg)](https://central.sonatype.com/artifact/io.github.ivamsi/ticker/0.1.0)
+
 Kotlin Multiplatform test doubles for `kotlin.time.Clock`.
 
 Whenever you write code that deals with TTLs, token expiration, retry backoffs, or cache eviction, you need a deterministic way to control time in your tests. Ticker provides lightweight, thread-safe clock doubles designed specifically for this purpose.
