@@ -17,7 +17,7 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Build and test all targets
         run: ./gradlew build
@@ -43,7 +43,7 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Test JVM, JS, Wasm and Linux targets
         run: ./gradlew jvmTest jsNodeTest wasmJsNodeTest linuxX64Test
@@ -59,7 +59,7 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Test MinGW x64
         run: ./gradlew mingwX64Test
